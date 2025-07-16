@@ -409,26 +409,283 @@ body {
 
 /* Contato Section */
 .contato {
-    padding: 4rem 0;
-    background-color: #fff;
+    background-color: var(--light-gray);
+    padding: 3rem 0;
     text-align: center;
 }
 
 .contato h3 {
     font-size: 2rem;
-    font-weight: 600;
     margin-bottom: 2rem;
-    color: #333;
+    color: var(--text-color);
 }
 
 .contato-info p {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: var(--light-text);
 }
 
 .contato-info p:last-child {
     margin-bottom: 0;
+}
+
+/* Modal de Pagamento */
+.modal-pagamento {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    overflow-y: auto;
+}
+
+.modal-pagamento.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.modal-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.valor-selecionado {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+}
+
+.valor-selecionado h4 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.metodos-pagamento h4 {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.metodo-pagamento {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.metodo-pagamento.active {
+    border-color: var(--primary-color);
+}
+
+.metodo-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: var(--light-gray);
+    cursor: pointer;
+}
+
+.metodo-header input[type="radio"] {
+    margin-right: 0.5rem;
+    accent-color: var(--primary-color);
+}
+
+.metodo-header label {
+    font-weight: 600;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.metodo-content {
+    padding: 1rem;
+    display: none;
+}
+
+.metodo-pagamento.active .metodo-content {
+    display: block;
+}
+
+/* PIX Section */
+.pix-qr {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.qr-placeholder {
+    width: 200px;
+    height: 200px;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    background: var(--light-gray);
+}
+
+.qr-placeholder p {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.qr-placeholder small {
+    color: var(--light-text);
+    margin-top: 0.5rem;
+}
+
+.pix-info {
+    text-align: center;
+}
+
+.pix-info p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Formulário de Cartão */
+.form-cartao {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Dados Bancários */
+.dados-bancarios-modal h5 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+.dado-bancario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: var(--light-gray);
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+.dado-bancario span {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+/* Botão Copiar */
+.btn-copiar {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-copiar:hover {
+    background: #7b1fa2;
 }
 
 /* Responsividade */
@@ -482,6 +739,29 @@ body {
     .image-placeholder {
         width: 100%;
         max-width: 400px;
+    }
+
+    .modal-pagamento.active {
+        padding: 10px;
+    }
+    
+    .modal-content {
+        max-height: 95vh;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .dado-bancario {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .qr-placeholder {
+        width: 150px;
+        height: 150px;
     }
 }
 

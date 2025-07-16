@@ -6,6 +6,7 @@
     <title>Passo a Passo Comunidade Terapêutica</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="js/mercadopago-config.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -49,25 +50,25 @@
                 
                 <div class="valores-doacao">
                     <div class="valor-item">
-                        <button class="btn-valor btn-valor-1">R$ 1.000,00</button>
+                        <button class="btn-valor btn-valor-1" data-valor="1000">R$ 1.000,00</button>
                     </div>
                     <div class="valor-item">
-                        <button class="btn-valor btn-valor-2">R$ 5.000,00</button>
+                        <button class="btn-valor btn-valor-2" data-valor="5000">R$ 5.000,00</button>
                     </div>
                     <div class="valor-item">
-                        <button class="btn-valor btn-valor-3">R$ 10.000,00</button>
+                        <button class="btn-valor btn-valor-3" data-valor="10000">R$ 10.000,00</button>
                     </div>
                     <div class="valor-item">
-                        <button class="btn-valor btn-valor-4">R$ 20.000,00</button>
+                        <button class="btn-valor btn-valor-4" data-valor="20000">R$ 20.000,00</button>
                     </div>
                     <div class="valor-item">
-                        <button class="btn-valor btn-valor-5">R$ 50.000,00</button>
+                        <button class="btn-valor btn-valor-5" data-valor="50000">R$ 50.000,00</button>
                     </div>
                     <div class="valor-item">
-                        <button class="btn-valor btn-valor-6">R$ 100.000,00</button>
+                        <button class="btn-valor btn-valor-6" data-valor="100000">R$ 100.000,00</button>
                     </div>
                     <div class="valor-item">
-                        <button class="btn-valor btn-valor-7">R$ 200.000,00</button>
+                        <button class="btn-valor btn-valor-7" data-valor="200000">R$ 200.000,00</button>
                     </div>
                 </div>
                 
@@ -78,12 +79,151 @@
         </div>
     </section>
 
+    <!-- Modal de Pagamento -->
+    <div id="modal-pagamento" class="modal-pagamento">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finalizar Doação</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="valor-selecionado">
+                    <h4>Valor selecionado: <span id="valor-exibicao">R$ 0,00</span></h4>
+                </div>
+                
+                <div class="metodos-pagamento">
+                    <h4>Escolha a forma de pagamento:</h4>
+                    
+                    <!-- PIX -->
+                    <div class="metodo-pagamento" id="pix-section">
+                        <div class="metodo-header">
+                            <input type="radio" name="metodo" id="pix" value="pix" checked>
+                            <label for="pix">PIX</label>
+                        </div>
+                        <div class="metodo-content">
+                            <div class="pix-qr">
+                                <div id="qr-code-container">
+                                    <div class="qr-placeholder">
+                                        <p>QR Code PIX</p>
+                                        <small>Escaneie com seu app bancário</small>
+                                    </div>
+                                </div>
+                                <button id="gerar-pix-btn" class="btn btn-primary">Gerar QR Code PIX</button>
+                            </div>
+                            <div class="pix-info">
+                                <p><strong>Chave PIX:</strong> 23.076.181/0001-35</p>
+                                <button class="btn-copiar" data-text="23.076.181/0001-35">Copiar Chave</button>
+                                <div id="pix-copy-code" style="display: none;">
+                                    <p><strong>Código PIX:</strong></p>
+                                    <textarea id="pix-code-text" readonly rows="3" style="width: 100%; margin: 10px 0;"></textarea>
+                                    <button class="btn-copiar" data-text="" id="copiar-pix-code">Copiar Código PIX</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cartão -->
+                    <div class="metodo-pagamento" id="cartao-section">
+                        <div class="metodo-header">
+                            <input type="radio" name="metodo" id="cartao" value="cartao">
+                            <label for="cartao">Cartão de Crédito/Débito</label>
+                        </div>
+                        <div class="metodo-content">
+                            <form id="form-checkout" class="form-cartao">
+                                <div class="form-group">
+                                    <label for="form-checkout__cardholderName">Nome no Cartão</label>
+                                    <input type="text" id="form-checkout__cardholderName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-checkout__cardNumber">Número do Cartão</label>
+                                    <input type="text" id="form-checkout__cardNumber" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="form-checkout__expirationDate">Validade</label>
+                                        <input type="text" id="form-checkout__expirationDate" placeholder="MM/YY" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-checkout__securityCode">CVV</label>
+                                        <input type="text" id="form-checkout__securityCode" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-checkout__installments">Parcelas</label>
+                                    <select id="form-checkout__installments" required>
+                                        <option value="1">1x sem juros</option>
+                                        <option value="2">2x sem juros</option>
+                                        <option value="3">3x sem juros</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-checkout__identificationType">Tipo de Documento</label>
+                                    <select id="form-checkout__identificationType" required>
+                                        <option value="CPF">CPF</option>
+                                        <option value="CNPJ">CNPJ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-checkout__identificationNumber">Número do Documento</label>
+                                    <input type="text" id="form-checkout__identificationNumber" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Pagar com Cartão</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Transferência -->
+                    <div class="metodo-pagamento" id="transferencia-section">
+                        <div class="metodo-header">
+                            <input type="radio" name="metodo" id="transferencia" value="transferencia">
+                            <label for="transferencia">Transferência Bancária</label>
+                        </div>
+                        <div class="metodo-content">
+                            <div class="dados-bancarios-modal">
+                                <h5>Dados Bancários:</h5>
+                                <div class="dado-bancario">
+                                    <span><strong>Banco:</strong> Caixa Econômica Federal</span>
+                                    <button class="btn-copiar" data-text="Caixa Econômica Federal">Copiar</button>
+                                </div>
+                                <div class="dado-bancario">
+                                    <span><strong>Agência:</strong> 433-2</span>
+                                    <button class="btn-copiar" data-text="433-2">Copiar</button>
+                                </div>
+                                <div class="dado-bancario">
+                                    <span><strong>Conta:</strong> 101060-3</span>
+                                    <button class="btn-copiar" data-text="101060-3">Copiar</button>
+                                </div>
+                                <div class="dado-bancario">
+                                    <span><strong>Favorecido:</strong> Casa de Acolhimento Caminho de Vida - CACVI</span>
+                                    <button class="btn-copiar" data-text="Casa de Acolhimento Caminho de Vida - CACVI">Copiar</button>
+                                </div>
+                                <div class="dado-bancario">
+                                    <span><strong>CNPJ:</strong> 23.076.181/0001-35</span>
+                                    <button class="btn-copiar" data-text="23.076.181/0001-35">Copiar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Sobre Section -->
     <section id="sobre" class="sobre">
         <div class="container">
             <h2>Quem somos</h2>
             <div class="sobre-text">
-                <p>A Casa de Acolhimento Caminho de Vida – CACVI é uma associação sem fins lucrativos, fundada em 14 de agosto de 2014 na cidade de Juazeiro do Norte – CE, localizada na Rua Leonor Araújo e Silva, 690 - Pedrinhas. A instituição tem como missão acolher, amparar e reabilitar homens adultos em situação de dependência química, promovendo sua reintegração social sem discriminação. Presidida por Francisco Gomes da Silva, a CACVI desenvolve ações voltadas à recuperação física, emocional, moral e social dos acolhidos, além de promover atividades educativas, culturais e preventivas sobre o uso de drogas. Também realiza campanhas, palestras e projetos, com foco na valorização da cidadania e na conscientização sobre os danos causados pelas drogas. Com sede no bairro Pedrinhas, a CACVI atua com autonomia administrativa e financeira, buscando parcerias e apoio de diferentes segmentos da sociedade para ampliar seu alcance e fortalecer sua causa.</p>
+                <p>A Passo a Passo Comunidade Terapêutica é uma instituição dedicada ao acolhimento e reabilitação de pessoas em situação de vulnerabilidade social e dependência química. Nossa missão é oferecer um ambiente seguro e acolhedor onde cada indivíduo possa reconstruir sua vida com dignidade, respeito e esperança.</p>
+                
+                <p>Fundada com o propósito de transformar vidas através do amor e da solidariedade, nossa comunidade terapêutica oferece programas especializados de recuperação que incluem acompanhamento psicológico, atividades terapêuticas, capacitação profissional e reintegração social. Acreditamos que cada pessoa tem o potencial de superar suas dificuldades e construir um futuro melhor.</p>
+                
+                <p>Nossa equipe é composta por profissionais qualificados e voluntários dedicados que trabalham incansavelmente para proporcionar um ambiente de cura e crescimento. Através de uma abordagem humanizada e personalizada, ajudamos nossos acolhidos a desenvolverem habilidades sociais, emocionais e profissionais necessárias para uma vida independente e saudável.</p>
+                
+                <p>Além do trabalho direto com os acolhidos, desenvolvemos ações educativas e preventivas na comunidade, promovendo conscientização sobre os riscos das drogas e a importância da saúde mental. Realizamos palestras, workshops e campanhas que visam fortalecer os laços familiares e comunitários.</p>
+                
+                <p>A Passo a Passo Comunidade Terapêutica atua com total transparência e compromisso com a sociedade, buscando constantemente parcerias e apoios que nos permitam ampliar nosso alcance e impactar positivamente mais vidas. Acreditamos que juntos podemos fazer a diferença e construir uma sociedade mais justa e solidária.</p>
             </div>
             
             <div class="stats">
