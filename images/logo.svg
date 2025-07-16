@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <style>
+      .logo-text { font-family: 'Brush Script MT', cursive; font-size: 36px; font-weight: normal; }
+      .subtitle { font-family: 'Arial', sans-serif; font-size: 16px; font-weight: normal; }
+      .footprint { fill: #4a148c; }
+      .toes { fill: #32cd32; }
+      .passo1 { fill: #4a148c; }
+      .passo2 { fill: #32cd32; }
+      .passo3 { fill: #4a148c; }
+      .subtitle-text { fill: #000000; }
+    </style>
+  </defs>
+  
+  <!-- Background lilás claro -->
+  <rect width="400" height="120" fill="#e6e6fa"/>
+  
+  <!-- Pé esquerdo -->
+  <g transform="translate(80, 20)">
+    <!-- Contorno do pé -->
+    <path class="footprint" d="M5,30 Q5,15 20,15 Q35,15 35,30 Q35,45 20,45 Q5,45 5,30 Z"/>
+    <!-- Dedos do pé -->
+    <circle class="toes" cx="8" cy="25" r="2.5"/>
+    <circle class="toes" cx="13" cy="22" r="2.5"/>
+    <circle class="toes" cx="18" cy="20" r="2.5"/>
+    <circle class="toes" cx="23" cy="22" r="2.5"/>
+    <circle class="toes" cx="28" cy="25" r="2.5"/>
+  </g>
+  
+  <!-- Pé direito -->
+  <g transform="translate(280, 20)">
+    <!-- Contorno do pé -->
+    <path class="footprint" d="M5,30 Q5,15 20,15 Q35,15 35,30 Q35,45 20,45 Q5,45 5,30 Z"/>
+    <!-- Dedos do pé -->
+    <circle class="toes" cx="8" cy="25" r="2.5"/>
+    <circle class="toes" cx="13" cy="22" r="2.5"/>
+    <circle class="toes" cx="18" cy="20" r="2.5"/>
+    <circle class="toes" cx="23" cy="22" r="2.5"/>
+    <circle class="toes" cx="28" cy="25" r="2.5"/>
+  </g>
+  
+  <!-- Texto principal "Passo a Passo" -->
+  <text x="200" y="75" text-anchor="middle" class="logo-text">
+    <tspan class="passo1">Passo</tspan>
+    <tspan class="passo2"> a </tspan>
+    <tspan class="passo3">Passo</tspan>
+  </text>
+  
+  <!-- Subtítulo "Comunidade Terapêutica" -->
+  <text x="200" y="100" text-anchor="middle" class="subtitle subtitle-text">Comunidade Terapêutica</text>
+</svg> 
