@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/mercadopago-config.js') }}"></script>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/logo.svg') }}">
 </head>
 <body>
     <!-- Header -->
@@ -14,7 +15,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="{{ url_for('static', filename='images/captura1.png') }}" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
+                    <img src="{{ url_for('static', filename='images/novalogo.jpeg') }}" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
                 </div>
                 <nav class="nav">
                     <button class="menu-toggle" id="menu-toggle">
@@ -126,7 +127,7 @@
                     <div class="stat-label">Voluntários e apoiadores</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">+25</div>
+                    <div class="stat-number">+2000</div>
                     <div class="stat-label">Pessoas reabilitadas</div>
                 </div>
             </div>
@@ -141,12 +142,24 @@
             
             <div class="atividades-grid">
                 <div class="atividade">
+                    <img src="{{ url_for('static', filename='images/atividade2.jpeg') }}" alt="Atividade 2" style="width:100%;border-radius:10px;margin-bottom:1rem;">
                     <h3>Acolhimento Terapêutico</h3>
                     <p>Apoio emocional e terapias para homens em recuperação da dependência química e vulnerabilidade social.</p>
                 </div>
                 <div class="atividade">
+                    <img src="{{ url_for('static', filename='images/atividade3.jpeg') }}" alt="Atividade 3" style="width:100%;border-radius:10px;margin-bottom:1rem;">
                     <h3>Reintegração Social</h3>
                     <p>Programas educativos e culturais que promovem a inclusão e o fortalecimento da comunidade atendida.</p>
+                </div>
+                <div class="atividade">
+                    <img src="{{ url_for('static', filename='images/ativiade4.jpeg') }}" alt="Atividade 4" style="width:100%;border-radius:10px;margin-bottom:1rem;">
+                    <h3>Convivência e Lazer</h3>
+                    <p>Atividades de integração, lazer e esportes para fortalecer vínculos e promover bem-estar.</p>
+                </div>
+                <div class="atividade">
+                    <img src="{{ url_for('static', filename='images/atividade1.jpeg') }}" alt="Atividade 1" style="width:100%;border-radius:10px;margin-bottom:1rem;">
+                    <h3>Capacitação e Certificação</h3>
+                    <p>Cursos, oficinas e treinamentos para desenvolvimento pessoal e profissional dos acolhidos.</p>
                 </div>
             </div>
         </div>
@@ -157,13 +170,51 @@
         <div class="container">
             <h2>Galeria</h2>
             <p>Momentos de transformação e reintegração na Passo a Passo Comunidade Terapêutica.</p>
-            <div class="galeria-image">
-                <div class="image-placeholder">
-                    <p>Imagem da Galeria</p>
+            <div class="galeria-image carousel">
+                <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <div class="carousel-track">
+                    <img src="{{ url_for('static', filename='images/equipe.jpeg') }}" alt="Equipe Passo a Passo" class="carousel-img active">
+                    <img src="{{ url_for('static', filename='images/equipe2.jpeg') }}" alt="Equipe Passo a Passo 2" class="carousel-img">
+                    <img src="{{ url_for('static', filename='images/rua.jpeg') }}" alt="Ação na rua" class="carousel-img">
                 </div>
+                <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
             </div>
+            <script>
+                let currentSlide = 0;
+                let carouselInterval;
+                function showSlide(n) {
+                    const slides = document.querySelectorAll('.carousel-img');
+                    if (n >= slides.length) currentSlide = 0;
+                    if (n < 0) currentSlide = slides.length - 1;
+                    slides.forEach((img, i) => img.classList.toggle('active', i === currentSlide));
+                }
+                function moveCarousel(dir) {
+                    currentSlide += dir;
+                    showSlide(currentSlide);
+                    resetCarouselInterval();
+                }
+                function startCarouselInterval() {
+                    carouselInterval = setInterval(() => {
+                        currentSlide++;
+                        showSlide(currentSlide);
+                    }, 6000); // 6 segundos
+                }
+                function resetCarouselInterval() {
+                    clearInterval(carouselInterval);
+                    startCarouselInterval();
+                }
+                document.addEventListener('DOMContentLoaded', () => {
+                    showSlide(currentSlide);
+                    startCarouselInterval();
+                });
+            </script>
         </div>
     </section>
+
+    <!-- Seção de Imagem Destacada -->
+    <!-- <section class="imagem-destacada">
+        <img src="{{ url_for('static', filename='images/FOTO2.png') }}" alt="Foto destacada" class="img-destacada">
+    </section> -->
 
     <!-- Apoio Section -->
     <section class="apoio">
@@ -183,8 +234,8 @@
         <div class="container">
             <h3>Contatos</h3>
             <div class="contato-info">
-                <p><strong>Telefone:</strong> xxxxxxx</p>
-                <p><strong>E-mail:</strong> xxxxxxx</p>
+                <p><strong>Telefone:</strong> (85) 98934-1714</p>
+                <p><strong>E-mail:</strong> Ctpassoapasso@gmail.com</p>
                 <p><strong>Instagram:</strong> @CT_PASSO_A_PASSO</p>
                 <p><strong>CNPJ:</strong> 52.853.543/0001-55</p>
             </div>
