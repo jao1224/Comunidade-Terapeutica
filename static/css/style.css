@@ -74,37 +74,6 @@ body {
     color: #666;
 }
 
-/* Menu Mobile */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    gap: 4px;
-}
-
-.menu-toggle span {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    transition: all 0.3s ease;
-    border-radius: 2px;
-}
-
-.menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-}
-
 /* Botões */
 .btn {
     display: inline-block;
@@ -722,9 +691,8 @@ body {
 /* Responsividade */
 @media (max-width: 768px) {
     .header-content {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
     }
     
     .logo-img {
@@ -732,41 +700,8 @@ body {
         max-width: 250px;
     }
     
-    .menu-toggle {
-        display: flex;
-    }
-    
     .nav-list {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background: white;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding-top: 2rem;
-        gap: 2rem;
-        transition: left 0.3s ease;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-        z-index: 1000;
-    }
-    
-    .nav-list.active {
-        left: 0;
-    }
-    
-    .nav-list li {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .nav-link {
-        display: block;
-        padding: 1rem;
-        font-size: 1.1rem;
-        border-bottom: 1px solid #eee;
+        gap: 1rem;
     }
     
     .hero-title {
@@ -780,11 +715,12 @@ body {
     
     .valores-doacao {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
+        max-width: 400px;
     }
     
     .valor-item:last-child {
         grid-column: 1 / -1;
+        justify-content: center;
     }
     
     .stats {
@@ -793,25 +729,24 @@ body {
     }
     
     .stat-item {
-        text-align: center;
+        max-width: none;
     }
     
     .atividades-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
     }
     
     .image-placeholder {
-        height: 200px;
+        width: 100%;
+        max-width: 400px;
     }
-    
+
     .modal-pagamento.active {
         padding: 10px;
     }
     
     .modal-content {
         max-height: 95vh;
-        margin: 10px;
     }
     
     .form-row {
@@ -828,460 +763,41 @@ body {
         width: 150px;
         height: 150px;
     }
-    
-    /* Melhorias específicas para mobile */
-    .container {
-        padding: 0 15px;
-    }
-    
-    .hero {
-        padding: 2rem 0;
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-        padding: 0 10px;
-    }
-    
-    .doacao {
-        padding: 2rem 0;
-    }
-    
-    .doacao h2 {
-        font-size: 1.5rem;
-        padding: 0 10px;
-    }
-    
-    .doacao h3 {
-        font-size: 1.2rem;
-        padding: 0 10px;
-    }
-    
-    .btn-valor {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-        max-width: 120px;
-    }
-    
-    .sobre {
-        padding: 2rem 0;
-    }
-    
-    .sobre h2 {
-        font-size: 1.8rem;
-    }
-    
-    .sobre-text p {
-        font-size: 0.95rem;
-        line-height: 1.7;
-    }
-    
-    .atividades {
-        padding: 2rem 0;
-    }
-    
-    .atividades h2 {
-        font-size: 1.8rem;
-    }
-    
-    .atividades-intro {
-        font-size: 0.95rem;
-        padding: 0 10px;
-    }
-    
-    .atividade {
-        padding: 1.5rem;
-    }
-    
-    .atividade h3 {
-        font-size: 1.3rem;
-    }
-    
-    .atividade p {
-        font-size: 0.9rem;
-    }
-    
-    .galeria {
-        padding: 2rem 0;
-    }
-    
-    .galeria h2 {
-        font-size: 1.8rem;
-    }
-    
-    .galeria p {
-        font-size: 0.95rem;
-        padding: 0 10px;
-    }
-    
-    .apoio {
-        padding: 2rem 0;
-    }
-    
-    .apoio h2 {
-        font-size: 1.8rem;
-    }
-    
-    .dados-bancarios {
-        padding: 1.5rem;
-    }
-    
-    .dados-bancarios p {
-        font-size: 0.9rem;
-        margin-bottom: 0.8rem;
-    }
-    
-    .contato {
-        padding: 2rem 0;
-    }
-    
-    .contato h3 {
-        font-size: 1.8rem;
-    }
-    
-    .contato-info p {
-        font-size: 0.95rem;
-        margin-bottom: 0.8rem;
-    }
-    
-    /* Modal melhorado para mobile */
-    .modal-header {
-        padding: 1rem;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.3rem;
-    }
-    
-    .modal-body {
-        padding: 1rem;
-    }
-    
-    .valor-selecionado h4 {
-        font-size: 1.1rem;
-    }
-    
-    .metodos-pagamento h4 {
-        font-size: 1.1rem;
-    }
-    
-    .metodo-header {
-        padding: 0.8rem;
-    }
-    
-    .metodo-content {
-        padding: 0.8rem;
-    }
-    
-    .form-group input,
-    .form-group select {
-        padding: 0.7rem;
-        font-size: 0.9rem;
-    }
-    
-    .btn-copiar {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.75rem;
-    }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 0 10px;
-    }
-    
-    .header-content {
-        padding: 0.5rem 0;
+        padding: 0 15px;
     }
     
     .logo-img {
         height: 40px;
-        max-width: 180px;
-    }
-    
-    .menu-toggle {
-        padding: 3px;
-    }
-    
-    .menu-toggle span {
-        width: 22px;
-        height: 2px;
-    }
-    
-    .nav-list {
-        top: 70px;
-        height: calc(100vh - 70px);
-        padding-top: 1.5rem;
-        gap: 1.5rem;
-    }
-    
-    .nav-link {
-        padding: 0.8rem;
-        font-size: 1rem;
+        max-width: 200px;
     }
     
     .hero-title {
         font-size: 1.8rem;
-        line-height: 1.2;
-    }
-    
-    .hero-subtitle {
-        font-size: 0.9rem;
     }
     
     .doacao h2 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
     
     .doacao h3 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     .valores-doacao {
         grid-template-columns: 1fr;
-        gap: 0.6rem;
+        max-width: 250px;
     }
     
     .valor-item:last-child {
         grid-column: 1;
     }
     
-    .btn-valor {
-        max-width: 100%;
-        padding: 1rem;
-        font-size: 1rem;
-    }
-    
     .btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 0.85rem;
-    }
-    
-    .sobre h2 {
-        font-size: 1.6rem;
-    }
-    
-    .sobre-text p {
-        font-size: 0.9rem;
-    }
-    
-    .atividades h2 {
-        font-size: 1.6rem;
-    }
-    
-    .atividades-intro {
-        font-size: 0.9rem;
-    }
-    
-    .atividade {
-        padding: 1.2rem;
-    }
-    
-    .atividade h3 {
-        font-size: 1.2rem;
-    }
-    
-    .atividade p {
-        font-size: 0.85rem;
-    }
-    
-    .galeria h2 {
-        font-size: 1.6rem;
-    }
-    
-    .galeria p {
-        font-size: 0.9rem;
-    }
-    
-    .apoio h2 {
-        font-size: 1.6rem;
-    }
-    
-    .dados-bancarios {
-        padding: 1.2rem;
-    }
-    
-    .dados-bancarios p {
-        font-size: 0.85rem;
-    }
-    
-    .contato h3 {
-        font-size: 1.6rem;
-    }
-    
-    .contato-info p {
-        font-size: 0.9rem;
-    }
-    
-    /* Modal ainda mais compacto */
-    .modal-pagamento.active {
-        padding: 5px;
-    }
-    
-    .modal-content {
-        max-height: 98vh;
-        margin: 5px;
-    }
-    
-    .modal-header {
-        padding: 0.8rem;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.2rem;
-    }
-    
-    .modal-body {
-        padding: 0.8rem;
-    }
-    
-    .valor-selecionado {
-        padding: 0.8rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .valor-selecionado h4 {
-        font-size: 1rem;
-    }
-    
-    .metodos-pagamento h4 {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .metodo-pagamento {
-        margin-bottom: 0.8rem;
-    }
-    
-    .metodo-header {
-        padding: 0.6rem;
-    }
-    
-    .metodo-content {
-        padding: 0.6rem;
-    }
-    
-    .form-group {
-        gap: 0.5rem;
-    }
-    
-    .form-group label {
-        font-size: 0.9rem;
-        margin-bottom: 0.3rem;
-    }
-    
-    .form-group input,
-    .form-group select {
-        padding: 0.6rem;
-        font-size: 0.85rem;
-    }
-    
-    .qr-placeholder {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .qr-placeholder p {
+        padding: 8px 16px;
         font-size: 0.8rem;
-    }
-    
-    .qr-placeholder small {
-        font-size: 0.7rem;
-    }
-    
-    .pix-info p {
-        font-size: 0.9rem;
-    }
-    
-    .dados-bancarios-modal h5 {
-        font-size: 1rem;
-    }
-    
-    .dado-bancario {
-        padding: 0.6rem;
-        margin-bottom: 0.4rem;
-    }
-    
-    .dado-bancario span {
-        font-size: 0.8rem;
-    }
-    
-    .btn-copiar {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.7rem;
-    }
-}
-
-/* Breakpoint extra para telas muito pequenas */
-@media (max-width: 360px) {
-    .container {
-        padding: 0 8px;
-    }
-    
-    .hero-title {
-        font-size: 1.6rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 0.85rem;
-    }
-    
-    .btn-valor {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-    }
-    
-    .modal-content {
-        margin: 2px;
-    }
-    
-    .modal-header {
-        padding: 0.6rem;
-    }
-    
-    .modal-body {
-        padding: 0.6rem;
-    }
-    
-    .form-group input,
-    .form-group select {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-    
-    .qr-placeholder {
-        width: 100px;
-        height: 100px;
-    }
-    
-    .qr-placeholder p {
-        font-size: 0.7rem;
-    }
-    
-    .qr-placeholder small {
-        font-size: 0.6rem;
-    }
-}
-
-/* Melhorias para orientação landscape em mobile */
-@media (max-width: 768px) and (orientation: landscape) {
-    .hero {
-        padding: 1.5rem 0;
-    }
-    
-    .hero-title {
-        font-size: 1.8rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .valores-doacao {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .modal-content {
-        max-height: 85vh;
     }
 }

@@ -1,3 +1,5 @@
+import mercadopago
+
 valores_doacao = [
     {"id": "1", "title": "Doação R$ 1.000,00", "quantity": 1, "currency_id": "BRL", "unit_price": 1000},
     {"id": "2", "title": "Doação R$ 5.000,00", "quantity": 1, "currency_id": "BRL", "unit_price": 5000},
@@ -8,23 +10,26 @@ valores_doacao = [
     {"id": "7", "title": "Doação R$ 200.000,00", "quantity": 1, "currency_id": "BRL", "unit_price": 200000},
 ]
 
-import requests
-
-if __name__ == "__main__":
-    url = "http://127.0.0.1:5000/api/create-preference"
+def gerar_link_pagamento():
+    sdk = mercadopago.SDK("TEST-679603549375810-071623-f26c95b6d25a0bb29ffe7935a7d372ba-2566626888")
     payment_data = {
-        "items": [valores_doacao[0]],  # Exemplo: envia o primeiro valor
+        "items": [valores_doacao[0]],
         "back_urls": {
             "success": "http://127.0.0.1:5000/sucesso",
             "pending": "http://127.0.0.1:5000/pendente",
             "failure": "http://127.0.0.1:5000/erro"
         },
+        "auto_return": "all",
         "external_reference": "teste123",
         "statement_descriptor": "DOACAO CASA"
     }
-    response = requests.post(url, json=payment_data)
-    print("Status:", response.status_code)
-    try:
-        print("Resposta:", response.json())
-    except Exception:
-        print("Resposta:", response.text) 
+    result = sdk.preference().create(payment_data)
+    payment = result["response"]
+    print("Resposta da API Mercado Pago:", payment)
+    if "init_point" in payment:
+        return payment["init_point"]
+    else:
+        print("Resposta inesperada da API:", payment)
+        raise Exception("Não foi possível gerar o link de pagamento. Verifique as credenciais e os dados enviados.")
+
+print(gerar_link_pagamento())

@@ -1,40 +1,38 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template
 import mercadopago
 import os
 
 # =========================
 # Configuração do Flask e Mercado Pago
 # =========================
-app = Flask(__name__, static_folder='.', static_url_path='')
+app = Flask(__name__)
 
 # Substitua pelo seu access_token do Mercado Pago
 sdk = mercadopago.SDK("TEST-679603549375810-071623-f26c95b6d25a0bb29ffe7935a7d372ba-2566626888")
 
 # =========================
-# Rotas para arquivos estáticos e página principal
+# Rotas para páginas principais
 # =========================
 @app.route('/')
 def index():
     """Serve a página principal do site."""
-    return send_from_directory('.', 'index.html')
-
-@app.route('/<path:path>')
-def static_files(path):
-    """Serve arquivos estáticos (css, js, imagens, etc)."""
-    return send_from_directory('.', path)
+    return render_template('index.html')
 
 @app.route('/sucesso')
 def sucesso():
-    return send_from_directory('.', 'sucesso.html')
+    return render_template('sucesso.html')
 
 @app.route('/erro')
 def erro():
-    return send_from_directory('.', 'erro.html')
+    return render_template('erro.html')
 
 @app.route('/pendente')
 def pendente():
-    return send_from_directory('.', 'pendente.html')
+    return render_template('pendente.html')
 
+# =========================
+# Rotas de API
+# =========================
 @app.route('/api/create-preference', methods=['POST'])
 def create_preference():
     data = request.json
@@ -64,7 +62,6 @@ def process_pix():
         "qr_code": pix_info.get("qr_code"),
         "ticket_url": pix_info.get("ticket_url")
     })
-
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True) 

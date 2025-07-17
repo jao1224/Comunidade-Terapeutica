@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passo a Passo Comunidade Terapêutica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/mercadopago-config.js') }}"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/captura1.png') }}" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
+                </div>
+                <nav class="nav">
+                    <button class="menu-toggle" id="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-list" id="nav-list">
+                        <li><a href="#inicio" class="nav-link">Início</a></li>
+                        <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                        <li><a href="#contato" class="nav-link">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Passo a Passo Comunidade Terapêutica</h1>
+                <p class="hero-subtitle">Reconstruindo vidas com amor, dignidade e esperança.</p>
+                <div class="hero-buttons">
+                    <a href="#sobre" class="btn btn-secondary">Saiba mais</a>
+                    <a href="#doar" class="btn btn-primary">Apoiar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doação Section -->
+    <section id="doar" class="doacao">
+        <div class="container">
+            <div class="doacao-content">
+                <h2>ESCOLHA UM VALOR ABAIXO E DOE AGORA.</h2>
+                <h3>FAÇA A DIFERENÇA NA VIDA DAS PESSOAS!</h3>
+                
+                <div class="valores-doacao">
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-1" data-valor="1000">R$ 1.000,00</button>
+                    </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-2" data-valor="5000">R$ 5.000,00</button>
+                    </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-3" data-valor="10000">R$ 10.000,00</button>
+                    </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-4" data-valor="20000">R$ 20.000,00</button>
+                    </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-5" data-valor="50000">R$ 50.000,00</button>
+                    </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-6" data-valor="100000">R$ 100.000,00</button>
+                    </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-7" data-valor="200000">R$ 200.000,00</button>
+                    </div>
+                </div>
+                
+                <div class="pix-info">
+                    <h4>Chave Pix: 52.853.543/0001-55</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Pagamento -->
+    <div id="modal-pagamento" class="modal-pagamento">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finalizar Doação</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="valor-selecionado">
+                    <h4>Valor selecionado: <span id="valor-exibicao">R$ 0,00</span></h4>
+                </div>
+                <div class="botoes-pagamento-simples" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                    <button class="btn btn-continuar-cartao" style="width: 100%;">Continuar (Cartão/Mercado Pago)</button>
+                    <button class="btn btn-pix-simples" style="width: 100%;" onclick="alert('Em breve!')">Pagar com PIX</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="sobre">
+        <div class="container">
+            <h2>Quem somos</h2>
+            <div class="sobre-text">
+                <p>A Passo a Passo Comunidade Terapêutica é uma instituição dedicada ao acolhimento e reabilitação de pessoas em situação de vulnerabilidade social e dependência química. Nossa missão é oferecer um ambiente seguro e acolhedor onde cada indivíduo possa reconstruir sua vida com dignidade, respeito e esperança.</p>
+                
+                <p>Fundada com o propósito de transformar vidas através do amor e da solidariedade, nossa comunidade terapêutica oferece programas especializados de recuperação que incluem acompanhamento psicológico, atividades terapêuticas, capacitação profissional e reintegração social. Acreditamos que cada pessoa tem o potencial de superar suas dificuldades e construir um futuro melhor.</p>
+                
+                <p>Nossa equipe é composta por profissionais qualificados e voluntários dedicados que trabalham incansavelmente para proporcionar um ambiente de cura e crescimento. Através de uma abordagem humanizada e personalizada, ajudamos nossos acolhidos a desenvolverem habilidades sociais, emocionais e profissionais necessárias para uma vida independente e saudável.</p>
+                
+                <p>Além do trabalho direto com os acolhidos, desenvolvemos ações educativas e preventivas na comunidade, promovendo conscientização sobre os riscos das drogas e a importância da saúde mental. Realizamos palestras, workshops e campanhas que visam fortalecer os laços familiares e comunitários.</p>
+                
+                <p>A Passo a Passo Comunidade Terapêutica atua com total transparência e compromisso com a sociedade, buscando constantemente parcerias e apoios que nos permitam ampliar nosso alcance e impactar positivamente mais vidas. Acreditamos que juntos podemos fazer a diferença e construir uma sociedade mais justa e solidária.</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">+1012</div>
+                    <div class="stat-label">Voluntários e apoiadores</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+25</div>
+                    <div class="stat-label">Pessoas reabilitadas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atividades Section -->
+    <section class="atividades">
+        <div class="container">
+            <h2>Nossas Atividades</h2>
+            <p class="atividades-intro">Oferecemos acolhimento, reabilitação e reintegração social para homens em situação de vulnerabilidade.</p>
+            
+            <div class="atividades-grid">
+                <div class="atividade">
+                    <h3>Acolhimento Terapêutico</h3>
+                    <p>Apoio emocional e terapias para homens em recuperação da dependência química e vulnerabilidade social.</p>
+                </div>
+                <div class="atividade">
+                    <h3>Reintegração Social</h3>
+                    <p>Programas educativos e culturais que promovem a inclusão e o fortalecimento da comunidade atendida.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria Section -->
+    <section class="galeria">
+        <div class="container">
+            <h2>Galeria</h2>
+            <p>Momentos de transformação e reintegração na Passo a Passo Comunidade Terapêutica.</p>
+            <div class="galeria-image">
+                <div class="image-placeholder">
+                    <p>Imagem da Galeria</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apoio Section -->
+    <section class="apoio">
+        <div class="container">
+            <h2>Apoie-nos. Faça a diferença.</h2>
+            <div class="dados-bancarios">
+                <p><strong>Banco:</strong> Santander</p>
+                <p><strong>Agência:</strong> 1007</p>
+                <p><strong>Conta Corrente:</strong> 13.001326-4</p>
+                <p><strong>Comunidade Terapêutica Passo a Passo</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato" class="contato">
+        <div class="container">
+            <h3>Contatos</h3>
+            <div class="contato-info">
+                <p><strong>Telefone:</strong> xxxxxxx</p>
+                <p><strong>E-mail:</strong> xxxxxxx</p>
+                <p><strong>Instagram:</strong> @CT_PASSO_A_PASSO</p>
+                <p><strong>CNPJ:</strong> 52.853.543/0001-55</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
