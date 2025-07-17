@@ -134,6 +134,24 @@
         </div>
     </section>
 
+    <!-- Equipe Section -->
+    <section class="equipe" style="margin-top: 40px; margin-bottom: 40px;">
+        <div class="container" style="text-align: center;">
+            <h2>Nossa Equipe</h2>
+            <img src="{{ url_for('static', filename='images/equipe.jpeg') }}" alt="Equipe Passo a Passo" style="max-width: 400px; width: 100%; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); margin: 24px auto; display: block;">
+            <p style="max-width: 600px; margin: 0 auto; font-size: 1.1rem; color: #444;">Nossa equipe é formada por profissionais e voluntários dedicados, comprometidos com a missão de transformar vidas através do acolhimento, cuidado e amor ao próximo.</p>
+            <a href="https://www.instagram.com/ct_passo_a_passo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; text-decoration: none; color: #E1306C; font-weight: 600; font-size: 1.1rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><rect width="24" height="24" rx="6" fill="#E1306C"/><path d="M16.8 7.2C16.8 6.53726 16.2627 6 15.6 6H8.4C7.73726 6 7.2 6.53726 7.2 7.2V15.6C7.2 16.2627 7.73726 16.8 8.4 16.8H15.6C16.2627 16.8 16.8 16.2627 16.8 15.6V7.2Z" stroke="white" stroke-width="1.2"/><circle cx="12" cy="12" r="2.4" stroke="white" stroke-width="1.2"/><circle cx="15.2" cy="8.8" r="0.6" fill="white"/></svg>
+                @ct_passo_a_passo
+            </a>
+            <div style="height: 18px;"></div>
+            <a href="https://www.instagram.com/passo_a_passo_na_rua?igsh=N3pmcm16Y25icnh0&utm_source=qr" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 0; text-decoration: none; color: #E1306C; font-weight: 600; font-size: 1.1rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><rect width="24" height="24" rx="6" fill="#E1306C"/><path d="M16.8 7.2C16.8 6.53726 16.2627 6 15.6 6H8.4C7.73726 6 7.2 6.53726 7.2 7.2V15.6C7.2 16.2627 7.73726 16.8 8.4 16.8H15.6C16.2627 16.8 16.8 16.2627 16.8 15.6V7.2Z" stroke="white" stroke-width="1.2"/><circle cx="12" cy="12" r="2.4" stroke="white" stroke-width="1.2"/><circle cx="15.2" cy="8.8" r="0.6" fill="white"/></svg>
+                @passo_a_passo_na_rua
+            </a>
+        </div>
+    </section>
+
     <!-- Atividades Section -->
     <section class="atividades">
         <div class="container">
@@ -160,6 +178,16 @@
                     <img src="{{ url_for('static', filename='images/atividade1.jpeg') }}" alt="Atividade 1" style="width:100%;border-radius:10px;margin-bottom:1rem;">
                     <h3>Capacitação e Certificação</h3>
                     <p>Cursos, oficinas e treinamentos para desenvolvimento pessoal e profissional dos acolhidos.</p>
+                </div>
+                <div class="atividade">
+                    <img src="{{ url_for('static', filename='images/podcast (2).jpeg') }}" alt="Podcast Passo a Passo" style="width:100%;border-radius:10px;margin-bottom:1rem;">
+                    <h3>Podcast Passo a Passo</h3>
+                    <p>Produção de conteúdo, entrevistas e debates sobre acolhimento, reabilitação e temas sociais relevantes.</p>
+                </div>
+                <div class="atividade">
+                    <img src="{{ url_for('static', filename='images/podcast (1).jpeg') }}" alt="Podcast Passo a Passo 2" style="width:100%;border-radius:10px;margin-bottom:1rem;">
+                    <h3>Podcast Passo a Passo</h3>
+                    <p>Espaço de diálogo, informação e inspiração para a comunidade e convidados especiais.</p>
                 </div>
             </div>
         </div>
@@ -236,7 +264,17 @@
             <div class="contato-info">
                 <p><strong>Telefone:</strong> (85) 98934-1714</p>
                 <p><strong>E-mail:</strong> Ctpassoapasso@gmail.com</p>
-                <p><strong>Instagram:</strong> @CT_PASSO_A_PASSO</p>
+                <div style="margin: 18px 0 0 0;">
+                    <a href="https://www.instagram.com/ct_passo_a_passo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; text-decoration: none; color: #555; font-weight: 600; font-size: 1.1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><rect width="24" height="24" rx="6" fill="#555"/><path d="M16.8 7.2C16.8 6.53726 16.2627 6 15.6 6H8.4C7.73726 6 7.2 6.53726 7.2 7.2V15.6C7.2 16.2627 7.73726 16.8 8.4 16.8H15.6C16.2627 16.8 16.8 16.2627 16.8 15.6V7.2Z" stroke="white" stroke-width="1.2"/><circle cx="12" cy="12" r="2.4" stroke="white" stroke-width="1.2"/><circle cx="15.2" cy="8.8" r="0.6" fill="white"/></svg>
+                        @ct_passo_a_passo
+                    </a>
+                    <br>
+                    <a href="https://www.instagram.com/passo_a_passo_na_rua?igsh=N3pmcm16Y25icnh0&utm_source=qr" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none; color: #555; font-weight: 600; font-size: 1.1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><rect width="24" height="24" rx="6" fill="#555"/><path d="M16.8 7.2C16.8 6.53726 16.2627 6 15.6 6H8.4C7.73726 6 7.2 6.53726 7.2 7.2V15.6C7.2 16.2627 7.73726 16.8 8.4 16.8H15.6C16.2627 16.8 16.8 16.2627 16.8 15.6V7.2Z" stroke="white" stroke-width="1.2"/><circle cx="12" cy="12" r="2.4" stroke="white" stroke-width="1.2"/><circle cx="15.2" cy="8.8" r="0.6" fill="white"/></svg>
+                        @passo_a_passo_na_rua
+                    </a>
+                </div>
                 <p><strong>CNPJ:</strong> 52.853.543/0001-55</p>
             </div>
         </div>
