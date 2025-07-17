@@ -17,7 +17,12 @@
                     <img src="images/Captura de tela 2025-07-16 192617.png" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
                 </div>
                 <nav class="nav">
-                    <ul class="nav-list">
+                    <button class="menu-toggle" id="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-list" id="nav-list">
                         <li><a href="#inicio" class="nav-link">Início</a></li>
                         <li><a href="#sobre" class="nav-link">Sobre</a></li>
                         <li><a href="#contato" class="nav-link">Contato</a></li>
@@ -73,7 +78,7 @@
                 </div>
                 
                 <div class="pix-info">
-                    <h4>Chave Pix: xxxxxxx</h4>
+                    <h4>Chave Pix: 52.853.543/0001-55</h4>
                 </div>
             </div>
         </div>
@@ -91,120 +96,9 @@
                 <div class="valor-selecionado">
                     <h4>Valor selecionado: <span id="valor-exibicao">R$ 0,00</span></h4>
                 </div>
-                
-                <div class="metodos-pagamento">
-                    <h4>Escolha a forma de pagamento:</h4>
-                    
-                    <!-- PIX -->
-                    <div class="metodo-pagamento" id="pix-section">
-                        <div class="metodo-header">
-                            <input type="radio" name="metodo" id="pix" value="pix" checked>
-                            <label for="pix">PIX</label>
-                        </div>
-                        <div class="metodo-content">
-                            <div class="pix-qr">
-                                <div id="qr-code-container">
-                                    <div class="qr-placeholder">
-                                        <p>QR Code PIX</p>
-                                        <small>Escaneie com seu app bancário</small>
-                                    </div>
-                                </div>
-                                <button id="gerar-pix-btn" class="btn btn-primary">Gerar QR Code PIX</button>
-                            </div>
-                            <div class="pix-info">
-                                <p><strong>Chave PIX:</strong> xxxxxxx</p>
-                                <button class="btn-copiar" data-text="xxxxxxx">Copiar Chave</button>
-                                <div id="pix-copy-code" style="display: none;">
-                                    <p><strong>Código PIX:</strong></p>
-                                    <textarea id="pix-code-text" readonly rows="3" style="width: 100%; margin: 10px 0;"></textarea>
-                                    <button class="btn-copiar" data-text="" id="copiar-pix-code">Copiar Código PIX</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Cartão -->
-                    <div class="metodo-pagamento" id="cartao-section">
-                        <div class="metodo-header">
-                            <input type="radio" name="metodo" id="cartao" value="cartao">
-                            <label for="cartao">Cartão de Crédito/Débito</label>
-                        </div>
-                        <div class="metodo-content">
-                            <form id="form-checkout" class="form-cartao">
-                                <div class="form-group">
-                                    <label for="form-checkout__cardholderName">Nome no Cartão</label>
-                                    <input type="text" id="form-checkout__cardholderName" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="form-checkout__cardNumber">Número do Cartão</label>
-                                    <input type="text" id="form-checkout__cardNumber" required>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="form-checkout__expirationDate">Validade</label>
-                                        <input type="text" id="form-checkout__expirationDate" placeholder="MM/YY" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="form-checkout__securityCode">CVV</label>
-                                        <input type="text" id="form-checkout__securityCode" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="form-checkout__installments">Parcelas</label>
-                                    <select id="form-checkout__installments" required>
-                                        <option value="1">1x sem juros</option>
-                                        <option value="2">2x sem juros</option>
-                                        <option value="3">3x sem juros</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="form-checkout__identificationType">Tipo de Documento</label>
-                                    <select id="form-checkout__identificationType" required>
-                                        <option value="CPF">CPF</option>
-                                        <option value="CNPJ">CNPJ</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="form-checkout__identificationNumber">Número do Documento</label>
-                                    <input type="text" id="form-checkout__identificationNumber" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Pagar com Cartão</button>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <!-- Transferência -->
-                    <div class="metodo-pagamento" id="transferencia-section">
-                        <div class="metodo-header">
-                            <input type="radio" name="metodo" id="transferencia" value="transferencia">
-                            <label for="transferencia">Transferência Bancária</label>
-                        </div>
-                        <div class="metodo-content">
-                            <div class="dados-bancarios-modal">
-                                <h5>Dados Bancários:</h5>
-                                <div class="dado-bancario">
-                                    <span><strong>Banco:</strong> xxxxxxx</span>
-                                    <button class="btn-copiar" data-text="xxxxxxx">Copiar</button>
-                                </div>
-                                <div class="dado-bancario">
-                                    <span><strong>Agência:</strong> xxxxxxx</span>
-                                    <button class="btn-copiar" data-text="xxxxxxx">Copiar</button>
-                                </div>
-                                <div class="dado-bancario">
-                                    <span><strong>Conta:</strong> xxxxxxx</span>
-                                    <button class="btn-copiar" data-text="xxxxxxx">Copiar</button>
-                                </div>
-                                <div class="dado-bancario">
-                                    <span><strong>Favorecido:</strong> Passo a Passo Comunidade Terapêutica</span>
-                                    <button class="btn-copiar" data-text="Passo a Passo Comunidade Terapêutica">Copiar</button>
-                                </div>
-                                <div class="dado-bancario">
-                                    <span><strong>CNPJ:</strong> xxxxxxx</span>
-                                    <button class="btn-copiar" data-text="xxxxxxx">Copiar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="botoes-pagamento-simples" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                    <button class="btn btn-continuar-cartao" style="width: 100%;">Continuar (Cartão/Mercado Pago)</button>
+                    <button class="btn btn-pix-simples" style="width: 100%;">Pagar com PIX</button>
                 </div>
             </div>
         </div>
@@ -276,9 +170,10 @@
         <div class="container">
             <h2>Apoie-nos. Faça a diferença.</h2>
             <div class="dados-bancarios">
-                <p><strong>Agência:</strong> xxxxxxx</p>
-                <p><strong>Conta Corrente:</strong> xxxxxxx</p>
-                <p><strong>Passo a Passo Comunidade Terapêutica</strong></p>
+                <p><strong>Banco:</strong> Santander</p>
+                <p><strong>Agência:</strong> 1007</p>
+                <p><strong>Conta Corrente:</strong> 13.001326-4</p>
+                <p><strong>Comunidade Terapêutica Passo a Passo</strong></p>
             </div>
         </div>
     </section>
@@ -291,6 +186,7 @@
                 <p><strong>Telefone:</strong> xxxxxxx</p>
                 <p><strong>E-mail:</strong> xxxxxxx</p>
                 <p><strong>Instagram:</strong> @CT_PASSO_A_PASSO</p>
+                <p><strong>CNPJ:</strong> 52.853.543/0001-55</p>
             </div>
         </div>
     </section>

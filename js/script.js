@@ -2,6 +2,34 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Menu Mobile
+    const menuToggle = document.getElementById('menu-toggle');
+    const navList = document.getElementById('nav-list');
+    
+    if (menuToggle && navList) {
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            navList.classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                navList.classList.remove('active');
+            });
+        });
+        
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!menuToggle.contains(e.target) && !navList.contains(e.target)) {
+                menuToggle.classList.remove('active');
+                navList.classList.remove('active');
+            }
+        });
+    }
+    
     // Inicializar integração com Mercado Pago
     let mercadoPago;
     try {
@@ -290,6 +318,56 @@ document.addEventListener('DOMContentLoaded', function() {
             qr_code: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==`,
             qr_code_text: `00020126580014br.gov.bcb.pix0136123e4567-e12b-12d1-a456-426614174000520400005303986540510.005802BR5913Teste PIX6008Brasilia62070503***6304E2CA`
         };
+    }
+    
+    // Função para criar preferência e redirecionar para o Mercado Pago
+    async function criarPreferenciaMercadoPago(valor) {
+        try {
+            const response = await fetch('/api/create-preference', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    items: [{
+                        id: "1",
+                        title: "Doação",
+                        quantity: 1,
+                        currency_id: "BRL",
+                        unit_price: valor
+                    }],
+                    back_urls: {
+                        success: window.location.origin + "/sucesso",
+                        pending: window.location.origin + "/pendente",
+                        failure: window.location.origin + "/erro"
+                    },
+                    external_reference: "doacao_frontend"
+                })
+            });
+            const data = await response.json();
+            if (data.init_point) {
+                window.location.href = data.init_point;
+            } else {
+                alert('Erro ao criar preferência de pagamento.');
+            }
+        } catch (error) {
+            alert('Erro ao conectar com o servidor.');
+        }
+    }
+
+    // Adicionar evento ao botão de pagamento com cartão
+    const btnPagarCartao = document.querySelector('.btn-pagar-cartao');
+    if (btnPagarCartao) {
+        btnPagarCartao.addEventListener('click', function() {
+            criarPreferenciaMercadoPago(valorAtual);
+        });
+    }
+    
+    // Evento para botão 'Continuar (Cartão/Mercado Pago)'
+    const btnContinuarCartao = document.querySelector('.btn-continuar-cartao');
+    if (btnContinuarCartao) {
+        btnContinuarCartao.addEventListener('click', function() {
+            console.log('Valor selecionado:', valorAtual);
+            criarPreferenciaMercadoPago(valorAtual);
+        });
     }
     
     // Formatação de campos do formulário de cartão
