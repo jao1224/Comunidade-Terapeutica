@@ -13,10 +13,10 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="{{ url_for('static', filename='images/novalogo.jpeg') }}" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
-                </div>
+            <div class="logo" style="justify-content: center; width: 100%; display: flex; align-items: center;">
+                <img src="{{ url_for('static', filename='images/novalogo.jpeg') }}" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
+            </div>
+            <div class="header-content" style="justify-content: center;">
                 <nav class="nav">
                     <button class="menu-toggle" id="menu-toggle">
                         <span></span>
@@ -26,7 +26,7 @@
                     <ul class="nav-list" id="nav-list">
                         <li><a href="#inicio" class="nav-link">Início</a></li>
                         <li><a href="#sobre" class="nav-link">Sobre</a></li>
-                        <li><a href="#contato" class="nav-link">Contato</a></li>
+                        <li><a href="#contato" class="nav-link">Contatos</a></li>
                     </ul>
                 </nav>
             </div>
@@ -51,10 +51,13 @@
     <section id="doar" class="doacao">
         <div class="container">
             <div class="doacao-content">
-                <h2>ESCOLHA UM VALOR ABAIXO E DOE AGORA.</h2>
+                <h2>ESCOLHA UM VALOR ABAIXO E DOE AGORA</h2>
                 <h3>FAÇA A DIFERENÇA NA VIDA DAS PESSOAS!</h3>
                 
                 <div class="valores-doacao">
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-8" data-valor="500">R$ 500,00</button>
+                    </div>
                     <div class="valor-item">
                         <button class="btn-valor btn-valor-1" data-valor="1000">R$ 1.000,00</button>
                     </div>
@@ -76,10 +79,15 @@
                     <div class="valor-item">
                         <button class="btn-valor btn-valor-7" data-valor="200000">R$ 200.000,00</button>
                     </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-outro" id="btn-valor-outro" type="button">Outro valor</button>
+                    </div>
                 </div>
                 
                 <div class="pix-info">
-                    <h4>Chave Pix: 52.853.543/0001-55</h4>
+                    <h4>Chave Pix: <span id="chave-pix">52.853.543/0001-55</span>
+                        <button id="copiar-pix" class="btn-copiar-pix" type="button" style="margin-left:10px; padding:4px 12px; font-size:1rem; border-radius:6px; border:none; background:#9c27b0; color:#fff; cursor:pointer;">Copiar</button>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -101,6 +109,20 @@
                     <button class="btn btn-continuar-cartao" style="width: 100%;">Continuar (Cartão/Mercado Pago)</button>
                     <button class="btn btn-pix-simples" style="width: 100%;" onclick="alert('Em breve!')">Pagar com PIX</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Outro Valor -->
+    <div id="modal-outro-valor" class="modal-pagamento">
+        <div class="modal-content" style="max-width: 350px;">
+            <div class="modal-header">
+                <h3>Digite o valor da doação</h3>
+                <button class="modal-close-outro-valor">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <input type="number" id="input-outro-valor" min="1" placeholder="Digite o valor (R$)" style="padding:8px; border-radius:6px; border:1px solid #ccc; width:180px; font-size:1rem;">
+                <button class="btn btn-primary" id="confirmar-outro-valor" type="button" style="margin-left:8px;">Doar</button>
             </div>
         </div>
     </div>

@@ -370,6 +370,52 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Outro valor de doação em modal
+    const btnOutroValor = document.getElementById('btn-valor-outro');
+    const modalOutroValor = document.getElementById('modal-outro-valor');
+    const inputOutroValor = document.getElementById('input-outro-valor');
+    const btnConfirmarOutroValor = document.getElementById('confirmar-outro-valor');
+    const btnCloseOutroValor = document.querySelector('.modal-close-outro-valor');
+
+    if (btnOutroValor && modalOutroValor && inputOutroValor && btnConfirmarOutroValor && btnCloseOutroValor) {
+        btnOutroValor.addEventListener('click', function() {
+            modalOutroValor.classList.add('active');
+            inputOutroValor.value = '';
+            inputOutroValor.focus();
+            document.body.style.overflow = 'hidden';
+        });
+        function fecharModalOutroValor() {
+            modalOutroValor.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Fechar também o modal de finalizar doação, se estiver aberto
+            if (modalPagamento.classList.contains('active')) {
+                modalPagamento.classList.remove('active');
+            }
+        }
+        btnCloseOutroValor.addEventListener('click', fecharModalOutroValor);
+        modalOutroValor.addEventListener('click', function(e) {
+            if (e.target === modalOutroValor) {
+                fecharModalOutroValor();
+            }
+        });
+        inputOutroValor.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                btnConfirmarOutroValor.click();
+            }
+        });
+        btnConfirmarOutroValor.addEventListener('click', function() {
+            const valor = parseFloat(inputOutroValor.value.replace(',', '.'));
+            if (!valor || valor <= 0) {
+                showNotification('Digite um valor válido para doar.', 'error');
+                inputOutroValor.focus();
+                return;
+            }
+            modalOutroValor.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            abrirModal(valor);
+        });
+    }
+    
     // Formatação de campos do formulário de cartão
     const numeroCartao = document.getElementById('form-checkout__cardNumber');
     const validadeCartao = document.getElementById('form-checkout__expirationDate');
@@ -466,6 +512,19 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
         });
     });
+    
+    // Botão de copiar chave Pix
+    const btnCopiarPix = document.getElementById('copiar-pix');
+    const chavePix = document.getElementById('chave-pix');
+    if (btnCopiarPix && chavePix) {
+        btnCopiarPix.addEventListener('click', function() {
+            navigator.clipboard.writeText(chavePix.textContent.trim()).then(() => {
+                showNotification('Chave Pix copiada!', 'success');
+            }).catch(() => {
+                showNotification('Erro ao copiar a chave Pix.', 'error');
+            });
+        });
+    }
     
     console.log('Site CACVI carregado com sucesso! 🚀');
 }); 
