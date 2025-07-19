@@ -523,6 +523,17 @@ body {
     color: var(--text-color);
 }
 
+.contato-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.contato-info p, .contato-info a {
+    text-align: center;
+}
+
 .contato-info p {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
@@ -842,6 +853,14 @@ body {
     
     .atividades-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .atividades-grid .atividade img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 1rem;
     }
     
     .image-placeholder {
