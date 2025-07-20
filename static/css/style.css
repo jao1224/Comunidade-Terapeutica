@@ -37,7 +37,8 @@ body {
 .header {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
-    padding: 1rem 0;
+    padding: 0;
+    min-height: unset;
 }
 
 .header-content {
@@ -49,25 +50,40 @@ body {
 .logo {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: auto;
 }
-
 .logo-img {
-    height: 90px;
+    height: 200px;
+    max-width: 700px;
     width: auto;
-    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+@media (max-width: 768px) {
+    .logo-img {
+        height: 120px;
+        max-width: 350px;
+    }
 }
 
 .nav-list {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 2.5rem;
+    font-size: 1.25rem;
 }
 
 .nav-link {
     text-decoration: none;
     color: #333;
-    font-weight: 400;
+    font-weight: 500;
     transition: color 0.3s ease;
+    font-size: 1.15em;
+    padding: 0.5em 0.8em;
 }
 
 .nav-link:hover {
@@ -172,6 +188,24 @@ body {
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 1rem;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000;
+    animation: piscar-texto 1s infinite alternate;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+}
+@keyframes piscar-texto {
+    0% {
+        color: #fff;
+        text-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000;
+    }
+    100% {
+        color: #ff0000;
+        text-shadow: 0 0 24px #fff, 0 0 32px #fff;
+    }
 }
 
 .doacao h3 {
@@ -194,7 +228,7 @@ body {
 }
 
 .valor-item:last-child {
-    grid-column: 2;
+    /* Removido grid-column: 2; para não forçar quebra de linha */
 }
 
 .btn-valor {
@@ -249,6 +283,28 @@ body {
 .btn-valor-7 {
     background-color: #4169e1; /* Azul */
     color: var(--white);
+}
+
+.btn-valor-8 {
+    background-color: #00bcd4; /* Azul piscina */
+    color: var(--white);
+}
+
+.btn-valor-outro {
+    background: #fff;
+    color: #333;
+    border: 2px solid #ccc;
+    font-weight: 600;
+    min-width: 150px;
+    min-height: 48px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    display: inline-block;  
+}
+.btn-valor-outro:hover {
+    background: #eee;
+    color: #222;
+    border: 2px solid #9c27b0;
 }
 
 .pix-info h4 {
@@ -465,6 +521,17 @@ body {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var(--text-color);
+}
+
+.contato-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.contato-info p, .contato-info a {
+    text-align: center;
 }
 
 .contato-info p {
@@ -743,8 +810,13 @@ body {
     }
     
     .logo-img {
-        height: 50px;
+        height: 90px;
+        max-height: 90px;
         max-width: 250px;
+    }
+    .logo, .header {
+        height: 90px;
+        max-height: 90px;
     }
     
     .nav-list {
@@ -783,6 +855,14 @@ body {
         grid-template-columns: 1fr;
     }
     
+    .atividades-grid .atividade img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+    }
+    
     .image-placeholder {
         width: 100%;
         max-width: 400px;
@@ -818,8 +898,13 @@ body {
     }
     
     .logo-img {
-        height: 40px;
-        max-width: 200px;
+        height: 70px;
+        max-height: 70px;
+        max-width: 180px;
+    }
+    .logo, .header {
+        height: 70px;
+        max-height: 70px;
     }
     
     .hero-title {
@@ -888,14 +973,13 @@ body {
     height: 350px;
 }
 .carousel-img {
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
-    height: auto;
+    width: 100%;
+    max-width: 600px;
+    height: 350px;
+    object-fit: cover;
     margin: auto;
     border-radius: 10px;
     box-shadow: 0 2px 12px rgba(44,62,80,0.10);
-    object-fit: contain;
     background: #f8f9fa;
     opacity: 0;
     transition: opacity 1.5s cubic-bezier(0.4,0,0.2,1);

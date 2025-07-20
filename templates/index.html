@@ -13,10 +13,10 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="{{ url_for('static', filename='images/novalogo.jpeg') }}" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
-                </div>
+            <div class="logo" style="justify-content: center; width: 100%; display: flex; align-items: center;">
+                <img src="{{ url_for('static', filename='images/novalogo.jpeg') }}" alt="Passo a Passo Comunidade Terapêutica" class="logo-img">
+            </div>
+            <div class="header-content" style="justify-content: center;">
                 <nav class="nav">
                     <button class="menu-toggle" id="menu-toggle">
                         <span></span>
@@ -26,7 +26,7 @@
                     <ul class="nav-list" id="nav-list">
                         <li><a href="#inicio" class="nav-link">Início</a></li>
                         <li><a href="#sobre" class="nav-link">Sobre</a></li>
-                        <li><a href="#contato" class="nav-link">Contato</a></li>
+                        <li><a href="#contato" class="nav-link">Contatos</a></li>
                     </ul>
                 </nav>
             </div>
@@ -51,10 +51,13 @@
     <section id="doar" class="doacao">
         <div class="container">
             <div class="doacao-content">
-                <h2>ESCOLHA UM VALOR ABAIXO E DOE AGORA.</h2>
+                <h2>ESCOLHA UM VALOR ABAIXO E DOE AGORA</h2>
                 <h3>FAÇA A DIFERENÇA NA VIDA DAS PESSOAS!</h3>
                 
                 <div class="valores-doacao">
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-8" data-valor="500">R$ 500,00</button>
+                    </div>
                     <div class="valor-item">
                         <button class="btn-valor btn-valor-1" data-valor="1000">R$ 1.000,00</button>
                     </div>
@@ -76,10 +79,15 @@
                     <div class="valor-item">
                         <button class="btn-valor btn-valor-7" data-valor="200000">R$ 200.000,00</button>
                     </div>
+                    <div class="valor-item">
+                        <button class="btn-valor btn-valor-outro" id="btn-valor-outro" type="button">Outro valor</button>
+                    </div>
                 </div>
                 
                 <div class="pix-info">
-                    <h4>Chave Pix: 52.853.543/0001-55</h4>
+                    <h4>Chave Pix: <span id="chave-pix">52.853.543/0001-55</span>
+                        <button id="copiar-pix" class="btn-copiar-pix" type="button" style="margin-left:10px; padding:4px 12px; font-size:1rem; border-radius:6px; border:none; background:#9c27b0; color:#fff; cursor:pointer;">Copiar</button>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -101,6 +109,20 @@
                     <button class="btn btn-continuar-cartao" style="width: 100%;">Continuar (Cartão/Mercado Pago)</button>
                     <button class="btn btn-pix-simples" style="width: 100%;" onclick="alert('Em breve!')">Pagar com PIX</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Outro Valor -->
+    <div id="modal-outro-valor" class="modal-pagamento">
+        <div class="modal-content" style="max-width: 350px;">
+            <div class="modal-header">
+                <h3>Digite o valor da doação</h3>
+                <button class="modal-close-outro-valor">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <input type="number" id="input-outro-valor" min="1" placeholder="Digite o valor (R$)" style="padding:8px; border-radius:6px; border:1px solid #ccc; width:180px; font-size:1rem;">
+                <button class="btn btn-primary" id="confirmar-outro-valor" type="button" style="margin-left:8px;">Doar</button>
             </div>
         </div>
     </div>
@@ -180,6 +202,11 @@
                     <p>Cursos, oficinas e treinamentos para desenvolvimento pessoal e profissional dos acolhidos.</p>
                 </div>
                 <div class="atividade">
+                    <img src="{{ url_for('static', filename='images/rua.jpeg') }}" alt="Ação social na rua" style="width:100%;border-radius:10px;margin-bottom:1rem;">
+                    <h3>Ação Social na Rua</h3>
+                    <p>Atividades de apoio, entrega de alimentos e acolhimento a pessoas em situação de rua, promovendo dignidade e solidariedade.</p>
+                </div>
+                <div class="atividade">
                     <img src="{{ url_for('static', filename='images/podcast1.jpeg') }}" alt="Podcast Passo a Passo" style="width:100%;border-radius:10px;margin-bottom:1rem;">
                     <h3>Podcast Passo a Passo</h3>
                     <p>Produção de conteúdo, entrevistas e debates sobre acolhimento, reabilitação e temas sociais relevantes.</p>
@@ -204,6 +231,11 @@
                     <img src="{{ url_for('static', filename='images/equipe.jpeg') }}" alt="Equipe Passo a Passo" class="carousel-img active">
                     <img src="{{ url_for('static', filename='images/equipe2.jpeg') }}" alt="Equipe Passo a Passo 2" class="carousel-img">
                     <img src="{{ url_for('static', filename='images/rua.jpeg') }}" alt="Ação na rua" class="carousel-img">
+                    <img src="{{ url_for('static', filename='images/ativiade4.jpeg') }}" alt="Atividade 4" class="carousel-img">
+                    <img src="{{ url_for('static', filename='images/atividade1.jpeg') }}" alt="Atividade 1" class="carousel-img">
+                    <img src="{{ url_for('static', filename='images/atividade2.jpeg') }}" alt="Atividade 2" class="carousel-img">
+                    <img src="{{ url_for('static', filename='images/atividade3.jpeg') }}" alt="Atividade 3" class="carousel-img">
+                    <img src="{{ url_for('static', filename='images/local.jpeg') }}" alt="Local" class="carousel-img">
                 </div>
                 <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
             </div>
@@ -263,7 +295,7 @@
             <h3>Contatos</h3>
             <div class="contato-info">
                 <p><strong>Telefone:</strong> (85) 98934-1714</p>
-                <p><strong>E-mail:</strong> Ctpassoapasso@gmail.com</p>
+                <p><strong>E-mail:</strong> <a href="mailto:ctpassoapasso@gmail.com" style="color:#9c27b0; text-decoration:underline;">ctpassoapasso@gmail.com</a></p>
                 <div style="margin: 18px 0 0 0;">
                     <a href="https://www.instagram.com/ct_passo_a_passo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; text-decoration: none; color: #555; font-weight: 600; font-size: 1.1rem;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><rect width="24" height="24" rx="6" fill="#555"/><path d="M16.8 7.2C16.8 6.53726 16.2627 6 15.6 6H8.4C7.73726 6 7.2 6.53726 7.2 7.2V15.6C7.2 16.2627 7.73726 16.8 8.4 16.8H15.6C16.2627 16.8 16.8 16.2627 16.8 15.6V7.2Z" stroke="white" stroke-width="1.2"/><circle cx="12" cy="12" r="2.4" stroke="white" stroke-width="1.2"/><circle cx="15.2" cy="8.8" r="0.6" fill="white"/></svg>
