@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento PIX - Passo a Passo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .valor {
+            font-size: 2.5rem;
+            color: #9c27b0;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .qr-code {
+            margin: 30px 0;
+        }
+        
+        .qr-code img {
+            max-width: 300px;
+            width: 100%;
+            border: 3px solid #9c27b0;
+            border-radius: 10px;
+        }
+        
+        .pix-code {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .pix-code input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            background: #9c27b0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background: #7b1fa2;
+        }
+        
+        .instructions {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+        
+        .instructions h3 {
+            color: #9c27b0;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Pagamento PIX</h1>
+        <p>Escaneie o QR Code para pagar</p>
+        
+        <div class="valor" id="valor">Carregando...</div>
+        
+        <div class="qr-code" id="qrcode">
+            <p>Gerando QR Code...</p>
+        </div>
+        
+        <div class="pix-code">
+            <p><strong>Ou copie o código PIX:</strong></p>
+            <input type="text" id="pixCode" readonly>
+            <button class="btn" onclick="copiarCodigo()">Copiar Código</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>Como pagar:</h3>
+            <ol>
+                <li>Abra o aplicativo do seu banco</li>
+                <li>Escolha a opção "Pagar com PIX"</li>
+                <li>Escaneie o QR Code acima ou cole o código copiado</li>
+                <li>Confirme o pagamento</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        function copiarCodigo() {
+            const input = document.getElementById('pixCode');
+            input.select();
+            document.execCommand('copy');
+            alert('Código PIX copiado!');
+        }
+        
+        // Carregar dados do PIX
+        const paymentId = window.location.pathname.split('/').pop();
+        // Aqui você pode fazer uma requisição para buscar os dados do pagamento
+        // Por enquanto, vamos apenas mostrar uma mensagem
+        document.getElementById('valor').textContent = 'R$ 0,00';
+        document.getElementById('qrcode').innerHTML = '<p>QR Code será exibido aqui</p>';
+    </script>
+</body>
+</html>

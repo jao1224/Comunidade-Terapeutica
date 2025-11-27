@@ -1,144 +1,167 @@
-# Casa de Acolhimento Caminho de Vida - CACVI
+# Passo a Passo Comunidade Terapêutica
 
-Um site moderno e responsivo para a Casa de Acolhimento Caminho de Vida (CACVI), uma instituição sem fins lucrativos dedicada ao acolhimento e reabilitação de homens em situação de vulnerabilidade social e dependência química.
+## 🔄 Migração: Mercado Pago → Getnet
+
+Este projeto foi **migrado da API do Mercado Pago para a Getnet**.
 
 ## 🚀 Características
 
 - **Design Moderno**: Interface limpa e profissional com gradientes e animações suaves
 - **Totalmente Responsivo**: Funciona perfeitamente em desktop, tablet e mobile
+- **Integração Getnet**: Pagamentos via PIX, Cartão de Crédito e Boleto
 - **Performance Otimizada**: Carregamento rápido e otimizado para SEO
 - **Acessibilidade**: Navegação por teclado e leitores de tela
-- **Animações Interativas**: Efeitos visuais que melhoram a experiência do usuário
-- **Formulário de Contato**: Sistema de validação e notificações
-- **Menu Mobile**: Navegação adaptativa para dispositivos móveis
 
 ## 📁 Estrutura do Projeto
 
 ```
 PROJETOCASADEAPOIO/
-├── index.html          # Página principal
-├── css/
-│   └── style.css       # Estilos CSS
-├── js/
-│   └── script.js       # Funcionalidades JavaScript
-├── images/             # Pasta para imagens
-└── README.md           # Documentação
+├── app.py                      # Aplicação Flask com endpoints Getnet
+├── apigetnet.py                # Cliente da API Getnet
+├── requirements.txt            # Dependências Python
+├── .env.example                # Template de configuração
+├── README-GETNET.md            # Documentação completa da Getnet
+├── templates/
+│   ├── index.html              # Página principal
+│   ├── sucesso.html            # Página de sucesso
+│   ├── erro.html               # Página de erro
+│   └── pendente.html           # Página de pendente
+└── static/
+    ├── css/
+    │   └── style.css           # Estilos CSS
+    ├── js/
+    │   ├── getnet-config.js    # Configuração Getnet
+    │   └── script.js           # Funcionalidades JavaScript
+    └── images/                 # Imagens do site
 ```
-
-## 🎨 Seções do Site
-
-1. **Header**: Navegação fixa com logo e menu
-2. **Hero**: Seção principal com chamada para ação
-3. **Sobre**: Informações sobre a instituição e estatísticas
-4. **Missão**: Valores e objetivos da CACVI
-5. **Atividades**: Programas e serviços oferecidos
-6. **Galeria**: Momentos e atividades da instituição
-7. **Doação**: Informações para contribuições
-8. **Contato**: Formulário e dados de contato
-9. **Footer**: Links úteis e redes sociais
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **HTML5**: Estrutura semântica
-- **CSS3**: Estilos modernos com CSS Grid e Flexbox
-- **JavaScript ES6+**: Funcionalidades interativas
-- **Font Awesome**: Ícones
-- **Google Fonts**: Tipografia Poppins
+- **Backend**: Flask (Python)
+- **Pagamentos**: Getnet API
+- **Frontend**: HTML5, CSS3, JavaScript ES6+
+- **Fontes**: Google Fonts
 
-## 🚀 Como Usar
+## ⚙️ Configuração
 
-1. **Clone ou baixe** o projeto
-2. **Abra** o arquivo `index.html` em um navegador
-3. **Personalize** o conteúdo conforme necessário
-4. **Adicione** suas próprias imagens na pasta `images/`
+### 1. Instalar Dependências
 
-## 🎯 Personalização
-
-### Cores
-As cores principais estão definidas como variáveis CSS no arquivo `style.css`:
-
-```css
-:root {
-    --primary-color: #e74c3c;      /* Vermelho principal */
-    --secondary-color: #2c3e50;    /* Azul escuro */
-    --accent-color: #f39c12;       /* Laranja */
-    /* ... outras cores */
-}
+```bash
+pip install -r requirements.txt
 ```
 
-### Conteúdo
-- Edite o arquivo `index.html` para alterar textos e informações
-- Substitua os placeholders de imagem por suas próprias fotos
-- Atualize dados de contato e informações bancárias
+### 2. Configurar Credenciais da Getnet
 
-### Funcionalidades
-- Modifique o arquivo `js/script.js` para adicionar novas funcionalidades
-- Ajuste animações e efeitos no CSS
+Copie o arquivo `.env.example` para `.env` e preencha com suas credenciais:
 
-## 📱 Responsividade
+```bash
+cp .env.example .env
+```
 
-O site é totalmente responsivo e se adapta a diferentes tamanhos de tela:
+Edite o arquivo `.env`:
 
-- **Desktop**: Layout completo com todas as funcionalidades
-- **Tablet**: Layout adaptado para telas médias
-- **Mobile**: Menu hambúrguer e layout otimizado
+```env
+GETNET_SELLER_ID=seu_seller_id
+GETNET_CLIENT_ID=seu_client_id
+GETNET_CLIENT_SECRET=seu_client_secret
+GETNET_ENVIRONMENT=sandbox
+```
 
-## ⚡ Performance
+**Obtenha suas credenciais em**: https://developers.getnet.com.br/
 
-- **Lazy Loading**: Imagens carregadas conforme necessário
-- **CSS Otimizado**: Variáveis CSS para reutilização
-- **JavaScript Modular**: Código organizado e eficiente
-- **Fontes Web**: Carregamento otimizado do Google Fonts
+### 3. Executar o Projeto
 
-## 🔧 Funcionalidades JavaScript
+```bash
+python app.py
+```
 
-- **Menu Mobile**: Toggle do menu em dispositivos móveis
-- **Scroll Suave**: Navegação interna com animação
-- **Animações**: Efeitos de entrada baseados em scroll
-- **Contador Animado**: Números que animam quando visíveis
-- **Validação de Formulário**: Verificação de campos obrigatórios
-- **Notificações**: Sistema de alertas para o usuário
-- **Scroll to Top**: Botão para voltar ao topo
-- **Copiar Dados**: Funcionalidade para copiar informações bancárias
+O servidor estará disponível em: `http://localhost:5000`
+
+## 💳 Métodos de Pagamento
+
+### PIX
+- Geração de QR Code
+- Código PIX para copiar
+- Confirmação em tempo real
+
+### Cartão de Crédito
+- Tokenização segura
+- Parcelamento
+- Validação de dados
+
+### Boleto Bancário
+- Geração de boleto
+- Código de barras
+- Link para impressão
+
+## 📚 Documentação
+
+Para informações detalhadas sobre a integração com a Getnet, consulte:
+- **[README-GETNET.md](README-GETNET.md)** - Documentação completa
+- **[apigetnet.py](apigetnet.py)** - Exemplos de uso comentados
+
+## 🔑 Endpoints da API
+
+- `POST /api/process-pix` - Criar pagamento PIX
+- `POST /api/process-credit-card` - Processar cartão de crédito
+- `POST /api/process-boleto` - Gerar boleto
+- `GET /api/payment-status/<payment_id>` - Consultar status
+- `POST /api/tokenize-card` - Tokenizar cartão
+
+## 🧪 Testando
+
+### Cartões de Teste (Sandbox)
+
+**Aprovado:**
+- Número: `5155901222280001`
+- CVV: `123`
+- Validade: Qualquer data futura
+
+**Negado:**
+- Número: `5155901222270002`
+- CVV: `123`
+- Validade: Qualquer data futura
+
+### CPF de Teste
+- `12345678900`
+
+## 📝 Arquivos Removidos
+
+Os seguintes arquivos do Mercado Pago foram removidos:
+- ❌ `apimercadopago.py`
+- ❌ `README-MERCADOPAGO.md`
+- ❌ `static/js/mercadopago-config.js`
+- ❌ `exemplo_uso_getnet.py`
+- ❌ `exemplo_frontend.html`
 
 ## 📞 Informações de Contato
 
-**Casa de Acolhimento Caminho de Vida - CACVI**
-- **Endereço**: Rua Leonor Araújo e Silva, 690 - Pedrinhas, Juazeiro do Norte/CE
-- **Telefone**: (88) 99999-9999
-- **E-mail**: contato@cacvi.org.br
-- **CNPJ**: 23.076.181/0001-35
+**Passo a Passo Comunidade Terapêutica**
+- **Telefone**: xxxxxxx
+- **E-mail**: xxxxxxx
+- **Instagram**: @CT_PASSO_A_PASSO
+- **CNPJ**: 52.853.543/0001-55
 
 ### Dados Bancários
-- **Banco**: Caixa Econômica Federal
-- **Agência**: 433-2
-- **Conta Corrente**: 101060-3
-- **PIX**: 23.076.181/0001-35
+- **Banco**: Santander
+- **Agência**: 1007
+- **Conta Corrente**: 13.001326-4
+- **PIX**: 52.853.543/0001-55
 
-## 🤝 Como Contribuir
+## 🔒 Segurança
 
-1. **Fork** o projeto
-2. **Crie** uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. **Commit** suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** para a branch (`git push origin feature/AmazingFeature`)
-5. **Abra** um Pull Request
+- Nunca exponha suas credenciais no código
+- Use variáveis de ambiente (`.env`)
+- Em produção, use HTTPS
+- Implemente rate limiting
+- Use tokenização para cartões
 
-## 📄 Licença
+## 🆘 Suporte Getnet
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-## 🙏 Agradecimentos
-
-- **CACVI**: Pela confiança e oportunidade
-- **Comunidade**: Pelo apoio e sugestões
-- **Voluntários**: Pelo trabalho incansável
-
-## 📞 Suporte
-
-Para dúvidas ou sugestões sobre o site, entre em contato:
-- **E-mail**: contato@cacvi.org.br
-- **Telefone**: (88) 99999-9999
+- **Email**: suporte@getnet.com.br
+- **Portal**: https://developers.getnet.com.br/suporte
+- **Documentação**: https://developers.getnet.com.br/
 
 ---
 
-**Desenvolvido com ❤️ para a Casa de Acolhimento Caminho de Vida** 
+**Desenvolvido com ❤️ para a Passo a Passo Comunidade Terapêutica**
