@@ -2,6 +2,19 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    // Resetar botões ao carregar a página (quando volta do navegador)
+    const btnCartao = document.querySelector('.btn-continuar-cartao');
+    const btnPix = document.querySelector('.btn-pix-manual');
+    
+    if (btnCartao) {
+        btnCartao.textContent = '💳 Pagar com Cartão';
+        btnCartao.disabled = false;
+    }
+    
+    if (btnPix) {
+        btnPix.disabled = false;
+    }
+    
     // Menu Mobile
     const menuToggle = document.getElementById('menu-toggle');
     const navList = document.getElementById('nav-list');
@@ -425,6 +438,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Evento para botão 'Pagar com Cartão'
     const btnContinuarCartao = document.querySelector('.btn-continuar-cartao');
     if (btnContinuarCartao) {
+        // Resetar botão quando a página é carregada (volta do navegador)
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || performance.getEntriesByType("navigation")[0].type === 'back_forward') {
+                btnContinuarCartao.textContent = '💳 Pagar com Cartão';
+                btnContinuarCartao.disabled = false;
+            }
+        });
+        
         btnContinuarCartao.addEventListener('click', async function() {
             console.log('Valor selecionado:', valorAtual);
             
@@ -435,7 +456,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             try {
                 // Mostrar loading
-                const textoOriginal = this.textContent;
+                const textoOriginal = '💳 Pagar com Cartão';
                 this.textContent = '⏳ Gerando link de pagamento...';
                 this.disabled = true;
                 
@@ -458,6 +479,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Redirecionar para a página de pagamento da Getnet
                 if (result.payment_url) {
                     console.log('Redirecionando para:', result.payment_url);
+                    
+                    // Salvar estado antes de redirecionar
+                    sessionStorage.setItem('redirecting', 'true');
+                    
                     window.location.href = result.payment_url;
                 } else {
                     throw new Error('Link de pagamento não foi gerado');
