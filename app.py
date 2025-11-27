@@ -258,8 +258,8 @@ def create_payment_link():
         
         print(f"Link criado com sucesso: {result}")
         
-        # A resposta da Getnet deve conter um link para pagamento
-        payment_url = result.get("link") or result.get("payment_url") or result.get("url")
+        # A resposta do GetPay contém a URL no campo "url"
+        payment_url = result.get("url")
         
         if not payment_url:
             print(f"⚠️ Resposta da Getnet não contém URL de pagamento: {result}")
@@ -273,10 +273,11 @@ def create_payment_link():
         
         # Retorna o link de pagamento
         return jsonify({
-            "payment_link_id": result.get("payment_link_id") or result.get("id"),
+            "link_id": result.get("link_id"),
             "payment_url": payment_url,
-            "qr_code": result.get("qr_code"),
-            "amount": amount / 100
+            "status": result.get("status"),
+            "amount": amount / 100,
+            "expiration": result.get("expiration")
         })
         
     except Exception as e:

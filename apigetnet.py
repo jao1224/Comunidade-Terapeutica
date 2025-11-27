@@ -121,37 +121,53 @@ class GetnetAPI:
     
     def create_payment_link(self, amount, description, redirect_urls=None):
         """
-        Cria um link de pagamento usando a Plataforma Digital da Getnet
-        Documentação: https://developers.getnet.com.br/products-docs/b07ilzfwy21roh8ui801cvxz/
+        Cria um link de pagamento usando GetPay
+        Documentação: https://developers.getnet.com.br/api#tag/GetPay
         
         Args:
             amount: Valor em centavos (ex: 10000 = R$ 100,00)
             description: Descrição do pagamento
-            redirect_urls: URLs de redirecionamento (success, error)
+            redirect_urls: URLs de redirecionamento (não usado no GetPay)
         """
-        # Endpoint correto da Plataforma Digital
-        url = f"{self.base_url}/v1/mgm/payment-link"
+        from datetime import datetime, timedelta
         
-        # Estrutura conforme documentação oficial da Getnet
+        # Endpoint correto do GetPay
+        url = f"{self.base_url}/v1/payment-links"
+        
+        # Data de expiração (7 dias)
+        expiration = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+        
+        # Estrutura conforme documentação oficial do GetPay
         payment_data = {
-            "label": description[:50],  # Máximo 50 caracteres
+            "label": description[:36],  # Mínimo 6, máximo 36 caracteres
+            "expiration": expiration,
+            "max_orders": 1,  # Número máximo de vendas
             "order": {
+                "product_type": "service",
+                "title": description[:100],
+                "description": description[:200],
                 "amount": amount,
-                "title": description[:100]  # Máximo 100 caracteres
+                "shipping_amount": 0
             },
             "payment": {
-                "methods": ["CREDIT", "DEBIT", "PIX"]  # Removido BOLETO temporariamente
+                "credit": {
+                    "enable": True,
+                    "max_installments": 12,
+                    "not_authenticated": True,
+                    "authenticated": True
+                },
+                "debit": {
+                    "enable": True,
+                    "not_authenticated": False,  # Deve ser False conforme documentação
+                    "authenticated": True
+                },
+                "pix": {
+                    "enable": True
+                }
             }
         }
         
-        # Não adicionar redirect_urls por enquanto para testar
-        # if redirect_urls:
-        #     payment_data["redirect_urls"] = {
-        #         "success": redirect_urls.get("success"),
-        #         "error": redirect_urls.get("error")
-        #     }
-        
-        print(f"\n=== CRIANDO LINK DE PAGAMENTO ===")
+        print(f"\n=== CRIANDO GETPAY ===")
         print(f"URL: {url}")
         print(f"Payload: {json.dumps(payment_data, indent=2)}")
         
@@ -163,10 +179,10 @@ class GetnetAPI:
         
         print(f"Status: {response.status_code}")
         print(f"Resposta: {response.text}")
-        print(f"=================================\n")
+        print(f"======================\n")
         
         if response.status_code not in [200, 201]:
-            raise Exception(f"Erro ao criar link de pagamento: {response.status_code} - {response.text}")
+            raise Exception(f"Erro ao criar GetPay: {response.status_code} - {response.text}")
         
         return response.json()
     
