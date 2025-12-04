@@ -18,9 +18,9 @@
 Na página de configuração do projeto, adicione as seguintes variáveis:
 
 ```
-GETNET_SELLER_ID=6998b003-8800-4ed5-be11-eae8e7bd4f97
-GETNET_CLIENT_ID=cd0b9ad5-bb47-403f-9ada-2e23fea824ba
-GETNET_CLIENT_SECRET=KJdI1P83qx7pg1N5fKDzC5SqIWJpcp9s
+GETNET_SELLER_ID=seu_seller_id_aqui
+GETNET_CLIENT_ID=seu_client_id_aqui
+GETNET_CLIENT_SECRET=seu_client_secret_aqui
 GETNET_ENVIRONMENT=production
 ```
 
@@ -53,10 +53,17 @@ vercel
 ### Configurar Variáveis de Ambiente
 
 ```bash
-vercel env add GETNET_SELLER_ID
-vercel env add GETNET_CLIENT_ID
-vercel env add GETNET_CLIENT_SECRET
-vercel env add GETNET_ENVIRONMENT
+vercel env add GETNET_SELLER_ID production
+# Cole o valor quando solicitado
+
+vercel env add GETNET_CLIENT_ID production
+# Cole o valor quando solicitado
+
+vercel env add GETNET_CLIENT_SECRET production
+# Cole o valor quando solicitado
+
+vercel env add GETNET_ENVIRONMENT production
+# Digite: production
 ```
 
 ### Deploy em Produção

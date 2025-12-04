@@ -1,5 +1,52 @@
+// Polyfill para Promise (celulares antigos)
+if (typeof Promise === 'undefined') {
+    window.Promise = function(executor) {
+        var callbacks = [];
+        var errorCallbacks = [];
+        var resolved = false;
+        var rejected = false;
+        var value;
+        
+        function resolve(val) {
+            if (resolved || rejected) return;
+            resolved = true;
+            value = val;
+            callbacks.forEach(function(cb) { cb(val); });
+        }
+        
+        function reject(err) {
+            if (resolved || rejected) return;
+            rejected = true;
+            value = err;
+            errorCallbacks.forEach(function(cb) { cb(err); });
+        }
+        
+        this.then = function(onResolve, onReject) {
+            if (resolved) {
+                onResolve && onResolve(value);
+            } else if (rejected) {
+                onReject && onReject(value);
+            } else {
+                onResolve && callbacks.push(onResolve);
+                onReject && errorCallbacks.push(onReject);
+            }
+            return this;
+        };
+        
+        this.catch = function(onReject) {
+            return this.then(null, onReject);
+        };
+        
+        try {
+            executor(resolve, reject);
+        } catch (e) {
+            reject(e);
+        }
+    };
+}
+
 // Configuração da Getnet
-const GETNET_CONFIG = {
+var GETNET_CONFIG = {
     // Ambiente: 'sandbox' ou 'production'
     environment: 'production',
     
@@ -19,50 +66,102 @@ class GetnetIntegration {
     
 
     // Criar link de pagamento (Plataforma Digital)
-    async createPaymentLink(valor, description = null) {
-        console.log('createPaymentLink chamado com:', { valor, description });
+    createPaymentLink(valor, description) {
+        var self = this;
+        description = description || null;
         
-        try {
-            const url = `${this.config.apiUrl}/api/create-payment-link`;
-            const payload = {
-                amount: valor,
-                description: description || this.config.description
-            };
-            
-            console.log('Enviando requisição para:', url);
-            console.log('Payload:', payload);
-            
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-            
-            console.log('Status da resposta:', response.status);
-            
-            const responseText = await response.text();
-            console.log('Resposta (texto):', responseText);
-            
-            if (!response.ok) {
-                let error;
-                try {
-                    error = JSON.parse(responseText);
-                } catch (e) {
-                    error = { error: responseText };
+        console.log('createPaymentLink chamado com:', { valor: valor, description: description });
+        
+        return new Promise(function(resolve, reject) {
+            try {
+                var url = self.config.apiUrl + '/api/create-payment-link';
+                var payload = {
+                    amount: valor,
+                    description: description || self.config.description
+                };
+                
+                console.log('Enviando requisição para:', url);
+                console.log('Payload:', payload);
+                
+                // Verificar se fetch está disponível
+                if (typeof fetch === 'undefined') {
+                    // Fallback para XMLHttpRequest (celulares antigos)
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', url, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    
+                    xhr.onload = function() {
+                        console.log('Status da resposta:', xhr.status);
+                        console.log('Resposta (texto):', xhr.responseText);
+                        
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            try {
+                                var result = JSON.parse(xhr.responseText);
+                                console.log('Resultado:', result);
+                                resolve(result);
+                            } catch (e) {
+                                reject(new Error('Erro ao processar resposta'));
+                            }
+                        } else {
+                            try {
+                                var error = JSON.parse(xhr.responseText);
+                                reject(new Error(error.error || 'Erro ao criar link de pagamento'));
+                            } catch (e) {
+                                reject(new Error('Erro ao criar link de pagamento'));
+                            }
+                        }
+                    };
+                    
+                    xhr.onerror = function() {
+                        reject(new Error('Erro de conexão'));
+                    };
+                    
+                    xhr.send(JSON.stringify(payload));
+                    return;
                 }
-                throw new Error(error.error || 'Erro ao criar link de pagamento');
+                
+                // Usar fetch para navegadores modernos
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(function(response) {
+                    console.log('Status da resposta:', response.status);
+                    
+                    return response.text().then(function(responseText) {
+                        console.log('Resposta (texto):', responseText);
+                        
+                        if (!response.ok) {
+                            var error;
+                            try {
+                                error = JSON.parse(responseText);
+                            } catch (e) {
+                                error = { error: responseText };
+                            }
+                            throw new Error(error.error || 'Erro ao criar link de pagamento');
+                        }
+                        
+                        var result = JSON.parse(responseText);
+                        console.log('Resultado:', result);
+                        return result;
+                    });
+                })
+                .then(function(result) {
+                    resolve(result);
+                })
+                .catch(function(error) {
+                    console.error('Erro ao criar link de pagamento:', error);
+                    reject(error);
+                });
+                
+            } catch (error) {
+                console.error('Erro ao criar link de pagamento:', error);
+                reject(error);
             }
-            
-            const result = JSON.parse(responseText);
-            console.log('Resultado:', result);
-            return result;
-            
-        } catch (error) {
-            console.error('Erro ao criar link de pagamento:', error);
-            throw error;
-        }
+        });
     }
     
     // Processar pagamento PIX
